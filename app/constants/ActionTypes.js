@@ -1,8 +1,7 @@
 'use strict';
-import keyMirror from 'react/lib/keyMirror';
 
-const ActionTypes = keyMirror({
-  INITIALIZE: null
-});
+const ActionTypes = {
+  INITIALIZE: 'INITIALIZE'
+};
 
 export default ActionTypes;

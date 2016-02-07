@@ -4,7 +4,7 @@ import ActionTypes from '../constants/ActionTypes';
 import TransactionApi from '../api/transactionsApi';
 
 class InitializeActions {
-  initApp() {
+  static initApp() {
     let transactions = TransactionApi.getTransactions();
 
     Dispatcher.dispatch({

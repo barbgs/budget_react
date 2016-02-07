@@ -7,8 +7,13 @@ import Events from 'events';
 const EventEmitter = Events.EventEmitter;
 const CHANGE_EVENT = 'change';
 
-var transactions = [];
+
 class TransactionStore extends EventEmitter {
+  constructor() {
+    super();
+    this.transactions = [];
+    this.registerDispatcher();
+  }
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   }
@@ -20,17 +25,22 @@ class TransactionStore extends EventEmitter {
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
+
   getTransactions() {
-    return transactions;
+    return this.transactions;
   }
+
+  registerDispatcher() {
+    Dispatcher.register((action) => {
+      switch (action.actionType) {
+        case ActionTypes.INITIALIZE:
+          this.transactions = action.initialData.transactions;
+          break;
+      };
+
+    });
+  }
+
 };
 
-Dispatcher.register((action) ->
-  switch(action.actionType) {
-    case ActionTypes.INITIALIZE:
-      transactions = action.transactions;
-      break;
-  };
-);
-
-export default TransactionStore;
+export default new TransactionStore();

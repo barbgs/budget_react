@@ -1,5 +1,5 @@
 'use strict';
-import transactionData from './transactionData';
+import transactionData from './transactionsData';
 
 class Transaction {
   constructor() {
