@@ -3,10 +3,11 @@ import transactionData from './transactionData';
 
 class Transaction {
   constructor() {
-    this.transactions = transactionData;
+    this.transactions = [];
   }
 
   static getTransactions() {
+    this.transactions = transactionData;
     return this.transactions;
   }
 
