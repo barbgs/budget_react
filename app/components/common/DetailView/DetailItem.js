@@ -1,6 +1,10 @@
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+
+const propTypes = {
+  detail: PropTypes.object.isRequired
+}
 
 class DetailItem extends React.Component {
   constructor() {
@@ -10,11 +14,12 @@ class DetailItem extends React.Component {
   render() {
     return (
       <li>
-        <span>Name</span>
-        <span>Amount</span>
+        <span>{this.props.detail.name}</span>
+        <span>{this.props.detail.amount}</span>
       </li>
     );
   }
 }
 
+DetailItem.propTypes = propTypes;
 export default DetailItem;

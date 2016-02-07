@@ -30,11 +30,15 @@ class TransactionStore extends EventEmitter {
     return this.transactions;
   }
 
+  getFixedExpenses() {
+    return this.fixedExpenses;
+  }
+
   registerDispatcher() {
     Dispatcher.register((action) => {
       switch (action.actionType) {
         case ActionTypes.INITIALIZE:
-          this.transactions = action.initialData.transactions;
+          this.transactions = action.initialData.transactions
           break;
       };
 

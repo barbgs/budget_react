@@ -11,9 +11,10 @@ class Budget extends React.Component {
     this.state = {
       transactions: TransactionStore.getTransactions()
     };
-    console.log(this.state.transactions);
     this.date = new Date();
+    console.log(this.state.transactions);
   }
+
   getDate() {
     let day = this.date.getDate();
     let month =  this.date.getMonth();
@@ -21,11 +22,18 @@ class Budget extends React.Component {
   }
 
   render() {
+    let transactions = [];
+    for (var key in this.state.transactions) {
+      if (this.state.transactions.hasOwnProperty(key)) {
+        transactions.push(<DetailView key={key} detail={this.state.transactions[key]} />)
+      }
+    }
+
     return (
       <div>
-        <h1>{this.getDate()}</h1>
+        <h3>{this.getDate()}</h3>
         <div className="listView">
-          <DetailView />
+          {transactions}
         </div>
       </div>
     );
