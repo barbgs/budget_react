@@ -2,7 +2,7 @@ const path = require('path');
 const config = {
   bundle: 'bundle.js',
   src: 'app',
-  dist: 'dist',
+  dist: 'build',
   script: 'main.js',
   port: 8080,
   host: 'http://localhost'
