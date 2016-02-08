@@ -1,0 +1,28 @@
+$red: #FF1654;
+$green: #0EAD69;
+
+.root {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.root > * {
+  flex: 1 100%;
+}
+.parent {
+  cursor: pointer;
+}
+.name {
+
+}
+
+.amount {
+
+}
+
+.details {
+  display: none;
+}
+.expanded.details {
+  display: block;
+}

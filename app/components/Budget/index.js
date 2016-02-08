@@ -9,7 +9,8 @@ class Budget extends React.Component {
   constructor() {
     super();
     this.state = {
-      transactions: TransactionStore.getTransactions()
+      transactions: TransactionStore.getTransactions(),
+      expanded: false
     };
     this.date = new Date();
     console.log(this.state.transactions);
@@ -20,12 +21,20 @@ class Budget extends React.Component {
     let month =  this.date.getMonth();
     return Utils.getDateFormatted(day, month);
   }
+  onDetailClick() {
+    let expanded = !this.state.expanded;
+    this.setState({ expanded });
+  }
 
   render() {
     let transactions = [];
     for (var key in this.state.transactions) {
       if (this.state.transactions.hasOwnProperty(key)) {
-        transactions.push(<DetailView key={key} detail={this.state.transactions[key]} />)
+        transactions.push(<DetailView
+          key={key}
+          expanded={this.state.expanded}
+          detail={this.state.transactions[key]}
+          onClick={this.onDetailClick.bind(this)} />)
       }
     }
 

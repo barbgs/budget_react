@@ -7,8 +7,8 @@ const propTypes = {
 }
 
 class DetailItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
