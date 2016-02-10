@@ -3,19 +3,15 @@
 import React, { PropTypes } from 'react';
 import DetailItem from './DetailItem'
 import styles from './styles.scss';
+import classNames from 'classNames';
 
 const propTypes = {
-  detail: PropTypes.object.isRequired,
-  expanded: PropTypes.bool.isRequired
+  detail: PropTypes.object.isRequired
 };
 
 class DetailView extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  setExpandedClass(){
-    return this.props.expanded ? `${styles.details} ${styles.expanded}` : styles.details
   }
 
   render() {
@@ -30,12 +26,11 @@ class DetailView extends React.Component {
 
     return (
       <div className={styles.root}>
-        <div className={styles.parent} onClick={this.props.onClick}>
-          <span className={styles.name}>{this.props.detail.name}</span>
+        <h3 className={styles.title}>
+          <span className={classNames(styles.name, styles[this.props.detail.type])}>{this.props.detail.name}</span>
           <span className={styles.amount}>{this.props.detail.amount}</span>
-          <span>+</span>
-        </div>
-        <ul className={this.setExpandedClass()}>{details}</ul>
+        </h3>
+        <ul className={styles.details}>{details}</ul>
       </div>
     );
   }

@@ -32,6 +32,7 @@ class Transaction {
   getFixedExpenses() {
     return {
       name: 'Fixed Expenses',
+      type: 'expenses',
       amount: this.getFixedTotal('expense'),
       detail: this.filterFixed('expense')
     }
@@ -40,6 +41,7 @@ class Transaction {
   getFixedIncome() {
     return {
       name: 'Fixed Income',
+      type: 'income',
       amount: this.getFixedTotal('income'),
       detail: this.filterFixed('income')
     };

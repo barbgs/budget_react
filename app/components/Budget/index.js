@@ -3,27 +3,22 @@
 import React from 'react';
 import Utils from '../../utils';
 import DetailView from '../common/DetailView';
+import styles from './styles.scss';
 import TransactionStore from '../../stores/transactionStore';
 
 class Budget extends React.Component {
   constructor() {
     super();
+    this.date = new Date();
     this.state = {
       transactions: TransactionStore.getTransactions(),
-      expanded: false
     };
-    this.date = new Date();
-    console.log(this.state.transactions);
   }
 
   getDate() {
     let day = this.date.getDate();
     let month =  this.date.getMonth();
     return Utils.getDateFormatted(day, month);
-  }
-  onDetailClick() {
-    let expanded = !this.state.expanded;
-    this.setState({ expanded });
   }
 
   render() {
@@ -32,16 +27,14 @@ class Budget extends React.Component {
       if (this.state.transactions.hasOwnProperty(key)) {
         transactions.push(<DetailView
           key={key}
-          expanded={this.state.expanded}
-          detail={this.state.transactions[key]}
-          onClick={this.onDetailClick.bind(this)} />)
+          detail={this.state.transactions[key]} />)
       }
     }
 
     return (
       <div>
-        <h3>{this.getDate()}</h3>
-        <div className="listView">
+        <h3 className={styles.date}>{this.getDate()}</h3>
+        <div>
           {transactions}
         </div>
       </div>

@@ -1,28 +1,53 @@
-$red: #FF1654;
-$green: #0EAD69;
+$red-expense: #FF1654;
+$green-income: #0EAD69;
+$gray: #E3E1E0;
+$main-color: #443f3b;
 
 .root {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column;
+  color: $main-color;
 }
 
-.root > * {
-  flex: 1 100%;
-}
-.parent {
-  cursor: pointer;
-}
-.name {
+.title {
+  margin: 5px 0;
+  display: flex;
+  flex-flow: row;
+  text-transform: uppercase;
+
+  .name {
+    width: 200px;
+
+    &.expenses {
+      color: $red-expense;
+    }
+
+    &.income {
+      color: $green-income;
+    }
+  }
 
 }
 
 .amount {
-
+  width: 100px;
+  text-align: right;
+  font-weight: 400;
 }
 
 .details {
-  display: none;
-}
-.expanded.details {
-  display: block;
+  & > * {
+    display: flex;
+    &.due {
+      color: lighten($main-color, 50%);
+    }
+  }
+
+  .date {
+    width: 30px;
+  }
+
+  .name {
+    width: 170px;
+  }
 }
