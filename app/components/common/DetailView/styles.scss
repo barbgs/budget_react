@@ -1,0 +1,58 @@
+$red-expense: #FF1654;
+$green-income: #0EAD69;
+$gray: #E3E1E0;
+$main-color: #443f3b;
+$blue-spendable: #247ba0;
+
+.root {
+  display: flex;
+  flex-flow: column;
+  color: $main-color;
+}
+
+.title {
+  margin: 5px 0;
+  display: flex;
+  flex-flow: row;
+  text-transform: uppercase;
+
+  .name {
+    width: 200px;
+
+    &.expenses {
+      color: $red-expense;
+    }
+
+    &.income {
+      color: $green-income;
+    }
+
+    &.spendable {
+      color: $blue-spendable;
+    }
+  }
+
+}
+
+.amount {
+  width: 100px;
+  text-align: right;
+  font-weight: 400;
+}
+
+.details {
+  & > * {
+    display: flex;
+    &.due {
+      color: lighten($main-color, 50%);
+    }
+  }
+
+  .date {
+    width: 30px;
+  }
+
+  .name {
+    width: 170px;
+  }
+}

@@ -2,7 +2,7 @@ const path = require('path');
 const config = {
   bundle: 'bundle.js',
   src: 'app',
-  dist: 'dist',
+  dist: 'build',
   script: 'main.js',
   port: 8080,
   host: 'http://localhost'
@@ -29,7 +29,7 @@ module.exports = {
     },
     {
       test: /\.scss$/,
-      loader: 'style!css!sass'
+      loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass'
     }]
   }
 };
