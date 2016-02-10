@@ -10,7 +10,9 @@ class Transaction {
   getTransactions() {
     return {
       'fixed_income': this.getFixedIncome(),
-      'fixed_expenses': this.getFixedExpenses()
+      'fixed_expenses': this.getFixedExpenses(),
+      'variable_expenses': this.getVariableExpenses(),
+      'spendable': this.getSpendable()
     };
   }
 
@@ -35,7 +37,29 @@ class Transaction {
       type: 'expenses',
       amount: this.getFixedTotal('expense'),
       detail: this.filterFixed('expense')
-    }
+    };
+  }
+
+  getTotalSpendable() {
+    return this.getFixedTotal('income') - this.getFixedTotal('expense');
+  }
+
+  getSpendable() {
+    return {
+      name: 'You can Spend',
+      type: 'spendable',
+      amount: this.getTotalSpendable(),
+      detail: []
+    };
+  }
+
+  getVariableExpenses() {
+    return {
+      name: 'Variable Expenses',
+      type: 'expenses',
+      amount: 0,
+      detail: []
+    };
   }
 
   getFixedIncome() {

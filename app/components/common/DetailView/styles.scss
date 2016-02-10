@@ -2,6 +2,7 @@ $red-expense: #FF1654;
 $green-income: #0EAD69;
 $gray: #E3E1E0;
 $main-color: #443f3b;
+$blue-spendable: #247ba0;
 
 .root {
   display: flex;
@@ -24,6 +25,10 @@ $main-color: #443f3b;
 
     &.income {
       color: $green-income;
+    }
+
+    &.spendable {
+      color: $blue-spendable;
     }
   }
 
