@@ -4,6 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
+    "firebase": "^2.4.0",
     "flux": "^2.1.1",
     "lodash": "^4.2.1",
     "react": "^0.14.7",

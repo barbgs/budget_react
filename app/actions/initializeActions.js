@@ -4,16 +4,19 @@ import ActionTypes from '../constants/ActionTypes';
 import TransactionApi from '../api/transactionsApi';
 
 class InitializeActions {
-  static initApp() {
-    let transactions = TransactionApi.getTransactions();
-
-    Dispatcher.dispatch({
-      actionType: ActionTypes.INITIALIZE,
-      initialData: {
-        transactions: transactions
-      }
-    });
+  initApp() {
+    TransactionApi.getTransactions()
+      .then((data) => {
+        Dispatcher.dispatch({
+          actionType: ActionTypes.INITIALIZE,
+          initialData: {
+            transactions: data
+          }
+        });
+      });
   }
+
+  
 }
 
-export default InitializeActions;
+export default new InitializeActions();

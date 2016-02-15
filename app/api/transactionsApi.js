@@ -1,13 +1,25 @@
 'use strict';
 import transactionData from './transactionsData';
-import _ from 'lodash'
+import _ from 'lodash';
+import Firebase from 'firebase';
 
 class Transaction {
   constructor() {
-    this.transactions = transactionData;
+    this.firebase = new Firebase('https://barbgs-budget.firebaseio.com');
+    this.transactions = [];
   }
 
   getTransactions() {
+    return new Promise((resolve, reject) => {
+      this.firebase.child('fixed_transactions').once('value', (data) => {
+          this.transactions = data.val();
+          resolve(this.getTransactionsObject())
+      });
+    });
+
+  }
+
+  getTransactionsObject() {
     return {
       'fixed_income': this.getFixedIncome(),
       'fixed_expenses': this.getFixedExpenses(),
@@ -16,16 +28,25 @@ class Transaction {
     };
   }
 
-  filterFixed(type) {
+  filterFixed(type, variable) {
     return _.filter(this.transactions, (t) => {
-      if (t.frequency && t.frequency === 'recurring' && t.type === type){
-        return t;
+      if (t.type === type) {
+        if (!variable) {
+          if (t.frequency && t.frequency === 'recurring') {
+            return t;
+          }
+        } else {
+          if (!t.frequency) {
+            return t;
+          }
+        }
+
       }
     });
   }
 
-  getFixedTotal(type) {
-    let fixedTransaction = this.filterFixed(type);
+  getFixedTotal(type, variable) {
+    let fixedTransaction = variable ? this.filterFixed(type, variable) : this.filterFixed(type);
     return _.reduce(fixedTransaction, (sum , n)=> {
       return sum + n.amount;
     }, 0).toFixed(2);
@@ -41,7 +62,7 @@ class Transaction {
   }
 
   getTotalSpendable() {
-    return this.getFixedTotal('income') - this.getFixedTotal('expense');
+    return (this.getFixedTotal('income') - this.getFixedTotal('expense') - this.getFixedTotal('expense', true)).toFixed(2);
   }
 
   getSpendable() {
@@ -57,8 +78,8 @@ class Transaction {
     return {
       name: 'Variable Expenses',
       type: 'expenses',
-      amount: 0,
-      detail: []
+      amount: this.getFixedTotal('expense', true),
+      detail: this.filterFixed('expense', true)
     };
   }
 

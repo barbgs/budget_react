@@ -1,0 +1,13 @@
+{
+  "fixed_transactions":  [
+    { "id": 1, "date": 1, "amount": 3500, "name": "ITESM", "frequency":"recurring", "type": "expense"},
+    { "id": 2, "date": 1, "amount": 3750, "name": "Renta", "frequency":"recurring", "type": "expense"},
+    { "id": 3, "date": 1, "amount": 500, "name": "SnapFitness", "frequency":"recurring", "type": "expense"},
+    { "id": 4, "date": 5, "amount": 99, "name": "Spotify", "frequency":"recurring", "type": "expense"},
+    { "id": 5, "date": 14, "amount": 437.5, "name": "Axtel", "frequency":"recurring", "type": "expense"},
+    { "id": 6, "date": 17, "amount": 2500, "name": "Ahorro", "frequency":"recurring", "type": "expense"},
+    { "id": 7, "date": 26, "amount": 99, "name": "Netflix", "frequency":"recurring", "type": "expense"},
+    { "id": 8, "date":15,  "amount": 12085.77, "name": "Ooyala", "frequency":"recurring", "type": "income"},
+    { "id": 9, "date":30,  "amount": 12085.77, "name": "Ooyala", "frequency":"recurring", "type": "income"}
+  ]
+}

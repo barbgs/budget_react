@@ -41,6 +41,7 @@ class TransactionStore extends EventEmitter {
           this.transactions = action.initialData.transactions
           break;
       };
+      this.emitChange();
 
     });
   }

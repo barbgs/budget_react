@@ -11,8 +11,21 @@ class Budget extends React.Component {
     super();
     this.date = new Date();
     this.state = {
-      transactions: TransactionStore.getTransactions(),
+      transactions: []
     };
+  }
+
+  componentWillMount() {
+    TransactionStore.addChangeListener(this.onStoreChange.bind(this))
+  }
+
+  componentWillUnmount() {
+    TransactionStore.removeChangeListener(this.onStoreChange.bind(this));
+  }
+
+  onStoreChange() {
+    let transactions = TransactionStore.getTransactions()
+    this.setState({ transactions });
   }
 
   getDate() {
