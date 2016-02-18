@@ -11,7 +11,8 @@ class Budget extends React.Component {
     super();
     this.date = new Date();
     this.state = {
-      transactions: []
+      transactions: [],
+      edit: {}
     };
   }
 
@@ -25,7 +26,22 @@ class Budget extends React.Component {
 
   onStoreChange() {
     let transactions = TransactionStore.getTransactions()
+    this.setEditState(transactions);
     this.setState({ transactions });
+  }
+
+  setEditState(transactions) {
+    let edit = {};
+    _.assign(edit, this.state.edit);
+
+    for (var key in transactions) {
+      if (transactions.hasOwnProperty(key)) {
+        if (!edit[key]){
+          edit[key] = false;
+        }
+      }
+    }
+    this.setState({ edit });
   }
 
   getDate() {
@@ -34,22 +50,31 @@ class Budget extends React.Component {
     return Utils.getDateFormatted(day, month);
   }
 
+  toggleEdit(id) {
+    let edit = !this.state.edit["fixed_expenses"];
+    let newState = _.assign({}, this.state.edit);
+    newState["fixed_expenses"] = edit;
+    this.setState({ edit: newState});
+  }
+
   render() {
     let transactions = [];
     for (var key in this.state.transactions) {
       if (this.state.transactions.hasOwnProperty(key)) {
-        transactions.push(<DetailView
-          key={key}
-          detail={this.state.transactions[key]} />)
+        transactions.push(
+          <DetailView
+            key={key}
+            detail={this.state.transactions[key]}
+            edit={this.state.edit[key]}
+            toggleEdit={this.toggleEdit.bind(this)} />
+        )
       }
     }
 
     return (
       <div>
         <h3 className={styles.date}>{this.getDate()}</h3>
-        <div>
-          {transactions}
-        </div>
+        {transactions}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 const path = require('path');
+
 const config = {
   bundle: 'bundle.js',
   src: 'app',
