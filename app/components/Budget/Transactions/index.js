@@ -22,7 +22,9 @@ class TransactionDetail extends React.Component {
           <Transaction
             key={detail.id}
             detail={detail}
-            toggleEdit={this.props.toggleEdit} />
+            edit={this.props.edit}
+            toggleEdit={this.props.toggleEdit}
+            detailKey={this.props.detailKey} />
         )
       });
     }

@@ -24,7 +24,7 @@ class Transaction extends React.Component {
     if (element.tagName !== 'LI') {
       element = element.parentNode;
     }*/
-    this.props.toggleEdit(this.props.detail.id);
+    this.props.toggleEdit(this.props.detailKey);
   }
 
   render() {

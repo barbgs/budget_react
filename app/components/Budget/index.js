@@ -66,7 +66,9 @@ class Budget extends React.Component {
         transactions.push(
           <div key={key}>
             <TransactionDetail
+              detailKey={key}
               detail={this.state.transactions[key]}
+              edit={this.state.edit[key]}
               toggleEdit={this.toggleEdit.bind(this)} />
             <ManageTransaction
               edit={this.state.edit[key]} />
