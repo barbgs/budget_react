@@ -1,11 +1,11 @@
 'use strict';
-
 import React from 'react';
 import Utils from '../../utils';
 import TransactionDetail from './Transactions';
 import styles from './styles.scss';
 import TransactionStore from '../../stores/transactionStore';
 import ManageTransaction from './Transactions/ManageTransaction';
+import TransactionActions from '../../actions/transactionActions';
 
 class Budget extends React.Component {
   constructor() {
@@ -13,7 +13,8 @@ class Budget extends React.Component {
     this.date = new Date();
     this.state = {
       transactions: [],
-      edit: {}
+      edit: {},
+      selected: {}
     };
   }
 
@@ -27,11 +28,11 @@ class Budget extends React.Component {
 
   onStoreChange() {
     let transactions = TransactionStore.getTransactions()
-    this.setEditState(transactions);
+    this.setEditStateFromTransactions(transactions);
     this.setState({ transactions });
   }
 
-  setEditState(transactions) {
+  setEditStateFromTransactions(transactions) {
     let edit = {};
     _.assign(edit, this.state.edit);
 
@@ -51,11 +52,19 @@ class Budget extends React.Component {
     return Utils.getDateFormatted(day, month);
   }
 
-  toggleEdit(id) {
-    let edit = !this.state.edit[id];
-    let newState = _.assign({}, this.state.edit);
-    newState[id] = edit;
-    this.setState({ edit: newState});
+  toggleManage(detailKey, transactionId) {
+    let newState = {};
+    let edit = !this.state.edit[detailKey];
+    let selected = TransactionStore.getTransactionById(transactionId)
+
+    if (selected) {
+
+      newState.selected = selected
+    }
+    newState.edit = _.assign({}, this.state.edit);
+    newState.edit[detailKey] = edit;
+
+    this.setState(newState);
   }
 
   render() {
@@ -69,9 +78,10 @@ class Budget extends React.Component {
               detailKey={key}
               detail={this.state.transactions[key]}
               edit={this.state.edit[key]}
-              toggleEdit={this.toggleEdit.bind(this)} />
+              toggleManage={this.toggleManage.bind(this)} />
             <ManageTransaction
-              edit={this.state.edit[key]} />
+              edit={this.state.edit[key]}
+              selected={this.state.selected} />
           </div>
         )
       }

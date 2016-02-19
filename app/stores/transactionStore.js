@@ -1,17 +1,17 @@
 'use strict';
-
 import Dispatcher from '../dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import Events from 'events';
+import _ from 'lodash';
 
 const EventEmitter = Events.EventEmitter;
 const CHANGE_EVENT = 'change';
-
 
 class TransactionStore extends EventEmitter {
   constructor() {
     super();
     this.transactions = [];
+    this.selectedTransaction = {};
     this.registerDispatcher();
   }
   addChangeListener(callback) {
@@ -30,6 +30,10 @@ class TransactionStore extends EventEmitter {
     return this.transactions;
   }
 
+  getTransactionById(id) {
+    return this.selectedTransaction;
+  }
+
   getFixedExpenses() {
     return this.fixedExpenses;
   }
@@ -39,9 +43,13 @@ class TransactionStore extends EventEmitter {
       switch (action.actionType) {
         case ActionTypes.INITIALIZE:
           this.transactions = action.initialData.transactions
+          this.emitChange();
+          break;
+        case ActionTypes.LOAD_TRANSACTION:
+          this.selectedTransaction = action.transaction;
+          this.emitChange();
           break;
       };
-      this.emitChange();
 
     });
   }

@@ -1,5 +1,4 @@
 'use strict';
-
 import React, { PropTypes } from 'react';
 import Transaction from './Transaction'
 import styles from './styles.scss';
@@ -23,7 +22,7 @@ class TransactionDetail extends React.Component {
             key={detail.id}
             detail={detail}
             edit={this.props.edit}
-            toggleEdit={this.props.toggleEdit}
+            toggleManage={this.props.toggleManage}
             detailKey={this.props.detailKey} />
         )
       });

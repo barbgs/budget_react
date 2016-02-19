@@ -13,10 +13,17 @@ class Transaction {
     return new Promise((resolve, reject) => {
       this.firebase.child('fixed_transactions').once('value', (data) => {
           this.transactions = data.val();
-          resolve(this.getTransactionsObject())
+          resolve(this.getTransactionsObject());
       });
     });
+  }
 
+  getTransactionById(id) {
+    return new Promise((resolve, reject) => {
+      this.firebase.child('fixed_transactions/id').equal.once('value', (data) => {
+          resolve(data.val());
+      });
+    });
   }
 
   getTransactionsObject() {

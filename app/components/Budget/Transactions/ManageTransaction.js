@@ -1,3 +1,4 @@
+'use strict';
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 
@@ -17,9 +18,18 @@ class ManageTransaction extends React.Component {
   render() {
     return (
       <form className={this.getVisibility()}>
-        <input type="number" placeholder="Date"/>
-        <input type="text" placeholder="Name"/>
-        <input type="text" placeholder="Amount"/>
+        <input
+          type="number"
+          placeholder="Date"
+          value={this.props.selected.date} />
+        <input
+          type="text"
+          placeholder="Name"
+          value={this.props.selected.name} />
+        <input
+          type="text"
+          placeholder="Amount"
+           value={this.props.selected.amount} />
       </form>
     );
   }
