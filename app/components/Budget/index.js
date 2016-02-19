@@ -2,9 +2,10 @@
 
 import React from 'react';
 import Utils from '../../utils';
-import TransactionList from './Transactions';
+import TransactionDetail from './Transactions';
 import styles from './styles.scss';
 import TransactionStore from '../../stores/transactionStore';
+import ManageTransaction from './Transactions/ManageTransaction';
 
 class Budget extends React.Component {
   constructor() {
@@ -51,24 +52,28 @@ class Budget extends React.Component {
   }
 
   toggleEdit(id) {
-    let edit = !this.state.edit["fixed_expenses"];
+    let edit = !this.state.edit[id];
     let newState = _.assign({}, this.state.edit);
-    newState["fixed_expenses"] = edit;
+    newState[id] = edit;
     this.setState({ edit: newState});
   }
 
   render() {
     let transactions = [];
+    let count = 0;
     for (var key in this.state.transactions) {
       if (this.state.transactions.hasOwnProperty(key)) {
         transactions.push(
-          <TransactionList
-            key={key}
-            detail={this.state.transactions[key]}
-            edit={this.state.edit[key]}
-            toggleEdit={this.toggleEdit.bind(this)} />
+          <div key={key}>
+            <TransactionDetail
+              detail={this.state.transactions[key]}
+              toggleEdit={this.toggleEdit.bind(this)} />
+            <ManageTransaction
+              edit={this.state.edit[key]} />
+          </div>
         )
       }
+      count++;
     }
 
     return (

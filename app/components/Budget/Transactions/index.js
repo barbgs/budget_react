@@ -4,13 +4,12 @@ import React, { PropTypes } from 'react';
 import Transaction from './Transaction'
 import styles from './styles.scss';
 import classNames from 'classNames';
-import ManageTransaction from './ManageTransaction';
 
 const propTypes = {
   detail: PropTypes.object.isRequired
 };
 
-class TransactionList extends React.Component {
+class TransactionDetail extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -37,12 +36,10 @@ class TransactionList extends React.Component {
           </h3>
           <ul className={styles.details}>{details}</ul>
         </div>
-        <ManageTransaction
-          edit={this.props.edit} />
       </div>
     );
   }
 }
 
-TransactionList.propTypes = propTypes;
-export default TransactionList;
+TransactionDetail.propTypes = propTypes;
+export default TransactionDetail;
