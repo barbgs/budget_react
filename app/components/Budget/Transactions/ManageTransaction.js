@@ -5,7 +5,7 @@ const propTypes = {
   edit: PropTypes.bool.isRequired
 }
 
-class ManageItem extends React.Component {
+class ManageTransaction extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -25,5 +25,5 @@ class ManageItem extends React.Component {
   }
 }
 
-ManageItem.propTypes = propTypes;
-export default ManageItem;
+ManageTransaction.propTypes = propTypes;
+export default ManageTransaction;

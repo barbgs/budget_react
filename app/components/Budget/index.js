@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Utils from '../../utils';
-import DetailView from '../common/DetailView';
+import TransactionList from './Transactions';
 import styles from './styles.scss';
 import TransactionStore from '../../stores/transactionStore';
 
@@ -62,7 +62,7 @@ class Budget extends React.Component {
     for (var key in this.state.transactions) {
       if (this.state.transactions.hasOwnProperty(key)) {
         transactions.push(
-          <DetailView
+          <TransactionList
             key={key}
             detail={this.state.transactions[key]}
             edit={this.state.edit[key]}

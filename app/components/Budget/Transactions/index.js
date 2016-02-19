@@ -1,16 +1,16 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import DetailItem from './DetailItem'
+import Transaction from './Transaction'
 import styles from './styles.scss';
 import classNames from 'classNames';
-import ManageItem from './ManageItem';
+import ManageTransaction from './ManageTransaction';
 
 const propTypes = {
   detail: PropTypes.object.isRequired
 };
 
-class DetailView extends React.Component {
+class TransactionList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -20,7 +20,7 @@ class DetailView extends React.Component {
     if(this.props.detail.detail) {
       details = this.props.detail.detail.map((detail) => {
         return (
-          <DetailItem
+          <Transaction
             key={detail.id}
             detail={detail}
             toggleEdit={this.props.toggleEdit} />
@@ -37,12 +37,12 @@ class DetailView extends React.Component {
           </h3>
           <ul className={styles.details}>{details}</ul>
         </div>
-        <ManageItem
+        <ManageTransaction
           edit={this.props.edit} />
       </div>
     );
   }
 }
 
-DetailView.propTypes = propTypes;
-export default DetailView;
+TransactionList.propTypes = propTypes;
+export default TransactionList;

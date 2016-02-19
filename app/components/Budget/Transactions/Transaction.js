@@ -2,14 +2,14 @@
 
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
-import Icon from '../Icon';
+import Icon from '../../common/Icon';
 
 const propTypes = {
   detail: PropTypes.object.isRequired,
   toggleEdit: PropTypes.func.isRequired
 }
 
-class DetailItem extends React.Component {
+class Transaction extends React.Component {
   constructor(props) {
     super(props);
     this.today = new Date().getDate();
@@ -39,5 +39,5 @@ class DetailItem extends React.Component {
   }
 }
 
-DetailItem.propTypes = propTypes;
-export default DetailItem;
+Transaction.propTypes = propTypes;
+export default Transaction;
