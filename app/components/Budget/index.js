@@ -39,7 +39,7 @@ class Budget extends React.Component {
     let edit = _.assign({}, this.state.edit);
     let selected = _.assign({}, this.state.selected);
 
-    this.transactionKeys.forEach( (key) => {
+    this.transactionKeys.forEach((key) => {
       /* By default set new transactions keys edit state to false */
       if (!edit[key]){
         edit[key] = false;
@@ -81,7 +81,7 @@ class Budget extends React.Component {
       also set all detailkeys edit to false to close them */
 
       newState.selected = _.assign({}, newState.selected);
-      this.transactionKeys.forEach( (key)=> {
+      this.transactionKeys.forEach((key)=> {
         newState.selected[key] = {};
         newState.edit[key] = false;
       });
@@ -95,24 +95,20 @@ class Budget extends React.Component {
 
   render() {
     let transactions = [];
-    let count = 0;
-    for (var key in this.state.transactions) {
-      if (this.state.transactions.hasOwnProperty(key)) {
-        transactions.push(
-          <div key={key}>
-            <TransactionDetail
-              detailKey={key}
-              detail={this.state.transactions[key]}
-              edit={this.state.edit[key]}
-              toggleManage={this.toggleManage.bind(this)} />
-            <ManageTransaction
-              edit={this.state.edit[key]}
-              selected={this.state.selected[key]} />
-          </div>
-        )
-      }
-      count++;
-    }
+    Object.keys(this.state.transactions).forEach((key) => {
+      transactions.push(
+        <div key={key}>
+        <TransactionDetail
+        detailKey={key}
+        detail={this.state.transactions[key]}
+        edit={this.state.edit[key]}
+        toggleManage={this.toggleManage.bind(this)} />
+        <ManageTransaction
+        edit={this.state.edit[key]}
+        selected={this.state.selected[key]} />
+        </div>
+      );
+    });
 
     return (
       <div>
