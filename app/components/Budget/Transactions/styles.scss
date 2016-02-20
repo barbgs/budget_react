@@ -31,8 +31,18 @@ $blue-spendable: #247ba0;
       color: $blue-spendable;
     }
   }
-
 }
+
+.add {
+  padding: 0 10px;
+  cursor: pointer;
+  color: $green-income;
+
+  &:hover {
+    color: darken($green-income, 15%);
+  }
+}
+
 
 .amount {
   width: 100px;

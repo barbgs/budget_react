@@ -13,6 +13,10 @@ class TransactionDetail extends React.Component {
     super(props);
   }
 
+  toggleManage() {
+    this.props.toggleManage(this.props.detailKey);
+  }
+
   render() {
     let details = null;
     if(this.props.detail.detail) {
@@ -32,8 +36,13 @@ class TransactionDetail extends React.Component {
       <div>
         <div className={styles.root}>
           <h3 className={styles.title}>
-            <span className={classNames(styles.name, styles[this.props.detail.type])}>{this.props.detail.name}</span>
+            <span className={classNames(styles.name, styles[this.props.detail.type])}>
+              {this.props.detail.name}
+            </span>
             <span className={styles.amount}>{this.props.detail.amount}</span>
+            <span className={styles.add} onClick={this.toggleManage.bind(this)}>
+              +
+            </span>
           </h3>
           <ul className={styles.details}>{details}</ul>
         </div>

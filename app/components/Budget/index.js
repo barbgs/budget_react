@@ -64,7 +64,7 @@ class Budget extends React.Component {
 
   toggleManage(detailKey, transactionId) {
     let newState = {};
-    let edit = true; //!this.state.edit[detailKey];
+    let edit = transactionId ? true : !this.state.edit[detailKey];
 
     /* this.state cannot be set directly, so new object is created
      */
@@ -98,14 +98,14 @@ class Budget extends React.Component {
     Object.keys(this.state.transactions).forEach((key) => {
       transactions.push(
         <div key={key}>
-        <TransactionDetail
-        detailKey={key}
-        detail={this.state.transactions[key]}
-        edit={this.state.edit[key]}
-        toggleManage={this.toggleManage.bind(this)} />
-        <ManageTransaction
-        edit={this.state.edit[key]}
-        selected={this.state.selected[key]} />
+          <TransactionDetail
+            detailKey={key}
+            detail={this.state.transactions[key]}
+            edit={this.state.edit[key]}
+            toggleManage={this.toggleManage.bind(this)} />
+          <ManageTransaction
+            edit={this.state.edit[key]}
+            selected={this.state.selected[key]} />
         </div>
       );
     });
