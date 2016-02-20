@@ -11,7 +11,6 @@ class TransactionStore extends EventEmitter {
   constructor() {
     super();
     this.transactions = [];
-    this.selectedTransaction = {};
     this.registerDispatcher();
   }
   addChangeListener(callback) {
@@ -30,8 +29,8 @@ class TransactionStore extends EventEmitter {
     return this.transactions;
   }
 
-  getTransactionById(id) {
-    return this.selectedTransaction;
+  getTransactionById(keys) {
+    return _.find(this.transactions[keys.detailKey].detail, { id: keys.id });
   }
 
   getFixedExpenses() {

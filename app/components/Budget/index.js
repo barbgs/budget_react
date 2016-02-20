@@ -11,6 +11,7 @@ class Budget extends React.Component {
   constructor() {
     super();
     this.date = new Date();
+    this.transactionKeys = [];
     this.state = {
       transactions: [],
       edit: {},
@@ -27,23 +28,32 @@ class Budget extends React.Component {
   }
 
   onStoreChange() {
-    let transactions = TransactionStore.getTransactions()
-    this.setEditStateFromTransactions(transactions);
+    let transactions = TransactionStore.getTransactions();
+    this.transactionKeys = Object.keys(transactions);
+    this.setEditSelectedInitialState(transactions);
     this.setState({ transactions });
   }
 
-  setEditStateFromTransactions(transactions) {
-    let edit = {};
-    _.assign(edit, this.state.edit);
+  /* Each transaction key has an edit and selected variable, they are set here */
+  setEditSelectedInitialState(transactions) {
+    let edit = _.assign({}, this.state.edit);
+    let selected = _.assign({}, this.state.selected);
 
-    for (var key in transactions) {
-      if (transactions.hasOwnProperty(key)) {
-        if (!edit[key]){
-          edit[key] = false;
-        }
+    this.transactionKeys.forEach( (key) => {
+      /* By default set new transactions keys edit state to false */
+      if (!edit[key]){
+        edit[key] = false;
       }
-    }
-    this.setState({ edit });
+      /* By default set new transactions keys selected to empty */
+      if (!selected[key]){
+        selected[key] = {};
+      }
+    });
+
+    this.setState({
+      edit,
+      selected
+    });
   }
 
   getDate() {
@@ -54,16 +64,32 @@ class Budget extends React.Component {
 
   toggleManage(detailKey, transactionId) {
     let newState = {};
-    let edit = !this.state.edit[detailKey];
-    let selected = TransactionStore.getTransactionById(transactionId)
+    let edit = true; //!this.state.edit[detailKey];
 
-    if (selected) {
-
-      newState.selected = selected
-    }
+    /* this.state cannot be set directly, so new object is created
+     */
     newState.edit = _.assign({}, this.state.edit);
-    newState.edit[detailKey] = edit;
 
+
+    /* If an id is provided , load selected from store */
+    if (transactionId) {
+      let selected = TransactionStore.getTransactionById({
+        detailKey,
+        id: transactionId
+      })
+      /* Set selected state for detailKey set all others to empty,
+      also set all detailkeys edit to false to close them */
+
+      newState.selected = _.assign({}, newState.selected);
+      this.transactionKeys.forEach( (key)=> {
+        newState.selected[key] = {};
+        newState.edit[key] = false;
+      });
+      newState.selected[detailKey] = selected;
+    }
+
+    /* Set only the current detailkey to true */
+    newState.edit[detailKey] = edit;
     this.setState(newState);
   }
 
@@ -81,7 +107,7 @@ class Budget extends React.Component {
               toggleManage={this.toggleManage.bind(this)} />
             <ManageTransaction
               edit={this.state.edit[key]}
-              selected={this.state.selected} />
+              selected={this.state.selected[key]} />
           </div>
         )
       }
