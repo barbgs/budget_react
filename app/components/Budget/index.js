@@ -62,14 +62,18 @@ class Budget extends React.Component {
     return Utils.getDateFormatted(day, month);
   }
 
+  setEditToFalse(edit) {
+    this.transactionKeys.forEach((key)=> {
+      edit[key] = false;
+    });
+    return edit;
+  }
+
   toggleManage(detailKey, transactionId) {
     let newState = {};
     let edit = transactionId ? true : !this.state.edit[detailKey];
-
-    /* this.state cannot be set directly, so new object is created
-     */
+    /* this.state cannot be set directly, so new object is created */
     newState.edit = _.assign({}, this.state.edit);
-
 
     /* If an id is provided , load selected from store */
     if (transactionId) {
@@ -77,19 +81,22 @@ class Budget extends React.Component {
         detailKey,
         id: transactionId
       })
+
       /* Set selected state for detailKey set all others to empty,
       also set all detailkeys edit to false to close them */
-
       newState.selected = _.assign({}, newState.selected);
       this.transactionKeys.forEach((key)=> {
         newState.selected[key] = {};
         newState.edit[key] = false;
       });
       newState.selected[detailKey] = selected;
+    } else {
+      newState.edit = this.setEditToFalse(newState.edit);
     }
 
     /* Set only the current detailkey to true */
     newState.edit[detailKey] = edit;
+
     this.setState(newState);
   }
 
