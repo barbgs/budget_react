@@ -35,7 +35,7 @@ class TransactionDetail extends React.Component {
     return (
       <div>
         <div className={styles.root}>
-          <h3 className={styles.title}>
+          <h3 className={styles.title} onDoubleClick={this.toggleManage.bind(this)}>
             <span className={classNames(styles.name, styles[this.props.detail.type])}>
               {this.props.detail.name}
             </span>

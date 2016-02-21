@@ -69,12 +69,34 @@ class Budget extends React.Component {
     return edit;
   }
 
+  getEditState(info) {
+    let edit = true;
+    let selectedId = this.state.selected[info.key].id;
+    let currentEdit = this.state.edit[info.key];
+
+    /* If clicking what is already selected */
+    /* If clicking add again */
+    if ((selectedId && selectedId === info.id) ||
+      (!selectedId && currentEdit === true && !info.id)) {
+      edit = !currentEdit;
+    }
+
+    return edit;
+  }
+
   toggleManage(detailKey, transactionId) {
     let newState = {};
-    let edit = transactionId ? true : !this.state.edit[detailKey];
     /* this.state cannot be set directly, so new object is created */
     newState.edit = _.assign({}, this.state.edit);
+    newState.selected = _.assign({}, this.state.selected);
 
+    let edit = this.getEditState({
+      key: detailKey,
+      id: transactionId
+    });
+
+    /* Check what state to put edit on*/
+    newState.selected[detailKey]
     /* If an id is provided , load selected from store */
     if (transactionId) {
       let selected = TransactionStore.getTransactionById({
@@ -84,13 +106,13 @@ class Budget extends React.Component {
 
       /* Set selected state for detailKey set all others to empty,
       also set all detailkeys edit to false to close them */
-      newState.selected = _.assign({}, newState.selected);
       this.transactionKeys.forEach((key)=> {
         newState.selected[key] = {};
         newState.edit[key] = false;
       });
       newState.selected[detailKey] = selected;
     } else {
+      newState.selected[detailKey] = {}
       newState.edit = this.setEditToFalse(newState.edit);
     }
 

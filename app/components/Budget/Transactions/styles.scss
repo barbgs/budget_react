@@ -4,52 +4,54 @@ $gray: #E3E1E0;
 $main-color: #443f3b;
 $blue-spendable: #247ba0;
 
+/* Budget and Transaction Details */
 .root {
   display: flex;
   flex-flow: column;
   color: $main-color;
-}
 
-.title {
-  margin: 5px 0;
-  display: flex;
-  flex-flow: row;
-  text-transform: uppercase;
+  .title {
+    margin: 5px 0;
+    display: flex;
+    flex-flow: row;
+    text-transform: uppercase;
+    cursor: pointer;
 
-  .name {
-    width: 200px;
+    .name {
+      width: 200px;
 
-    &.expenses {
-      color: $red-expense;
+      &.expenses {
+        color: $red-expense;
+      }
+
+      &.income {
+        color: $green-income;
+      }
+
+      &.spendable {
+        color: $blue-spendable;
+      }
     }
+  }
 
-    &.income {
-      color: $green-income;
-    }
+  .add {
+    padding: 0 10px;
+    cursor: pointer;
+    color: $green-income;
 
-    &.spendable {
-      color: $blue-spendable;
+    &:hover {
+      color: darken($green-income, 15%);
     }
+  }
+
+  .amount {
+    width: 100px;
+    text-align: right;
+    font-weight: 400;
   }
 }
 
-.add {
-  padding: 0 10px;
-  cursor: pointer;
-  color: $green-income;
-
-  &:hover {
-    color: darken($green-income, 15%);
-  }
-}
-
-
-.amount {
-  width: 100px;
-  text-align: right;
-  font-weight: 400;
-}
-
+/* Transaction */
 .details {
   & > * {
     display: flex;
@@ -69,4 +71,21 @@ $blue-spendable: #247ba0;
 
 .hidden {
   display: none;
+}
+
+/* Manage Transaction */
+.manage {
+  input[type="text"], input[type="number"] {
+    border-radius: 3px;
+    border: 1px solid $gray;
+    padding: 3px;
+  }
+
+  .date {
+    max-width: 50px;
+  }
+  .amount {
+    max-width: 100px;
+  }
+
 }
