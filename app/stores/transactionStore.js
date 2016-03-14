@@ -48,6 +48,9 @@ class TransactionStore extends EventEmitter {
           this.selectedTransaction = action.transaction;
           this.emitChange();
           break;
+        case ActionTypes.SAVED_TRANSACTION:
+          this.transactions = action.transactions;
+          this.emitChange();
       };
 
     });

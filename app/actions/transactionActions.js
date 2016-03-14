@@ -13,7 +13,15 @@ class TransactionActions {
         });
       });
   }
-
+  saveTransaction(transaction) {
+    TransactionApi.saveTransaction(transaction)
+      .then((transactions) => {
+        Dispatcher.dispatch({
+          actionType: ActionTypes.SAVED_TRANSACTION,
+          transactions
+        });
+      });
+  }
 }
 
 export default new TransactionActions();

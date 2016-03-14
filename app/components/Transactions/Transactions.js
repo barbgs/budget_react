@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import TransactionList from './TransactionList';
 import TransactionStore from '../../stores/transactionStore';
+import AddTransaction from './AddTransaction';
 
 class Transactions extends Component {
   constructor() {
@@ -29,6 +30,10 @@ class Transactions extends Component {
     this.setState({ editing: transaction.id});
   }
 
+  onSave(transaction) {
+    console.log("saving this", transaction)
+  }
+
   handleChange() {
     console.log('change');
   }
@@ -53,6 +58,7 @@ class Transactions extends Component {
     return (
       <div>
         {this.renderTransactionLists()}
+        <AddTransaction />
       </div>
     );
   }

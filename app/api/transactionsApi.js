@@ -55,7 +55,7 @@ class Transaction {
   getFixedTotal(type, variable) {
     let fixedTransaction = variable ? this.filterFixed(type, variable) : this.filterFixed(type);
     return _.reduce(fixedTransaction, (sum , n)=> {
-      return sum + n.amount;
+      return sum + parseInt(n.amount);
     }, 0).toFixed(2);
   }
 
@@ -99,6 +99,21 @@ class Transaction {
     };
   }
 
+  saveTransaction(transaction) {
+    var detailKey = `${transaction.frequency === 'recurring' ? 'fixed' : 'variable'}_transactions`;
+    return new Promise((resolve, reject) => {
+      var ref = this.firebase.child(detailKey).push(transaction, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          var added = _.assign({}, transaction);
+          added.id = ref.key();
+          this.transactions.push(added);
+          resolve(this.getTransactionsObject());
+        }
+      });
+    });
+  }
 }
 
 export default new Transaction();
