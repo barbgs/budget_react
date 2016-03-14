@@ -64,7 +64,7 @@ class Transaction {
       name: 'Fixed Expenses',
       type: 'expenses',
       amount: this.getFixedTotal('expense'),
-      detail: this.filterFixed('expense')
+      items: this.filterFixed('expense')
     };
   }
 
@@ -77,7 +77,7 @@ class Transaction {
       name: 'You can Spend',
       type: 'spendable',
       amount: this.getTotalSpendable(),
-      detail: []
+      items: []
     };
   }
 
@@ -86,7 +86,7 @@ class Transaction {
       name: 'Variable Expenses',
       type: 'expenses',
       amount: this.getFixedTotal('expense', true),
-      detail: this.filterFixed('expense', true)
+      items: this.filterFixed('expense', true)
     };
   }
 
@@ -95,7 +95,7 @@ class Transaction {
       name: 'Fixed Income',
       type: 'income',
       amount: this.getFixedTotal('income'),
-      detail: this.filterFixed('income')
+      items: this.filterFixed('income')
     };
   }
 

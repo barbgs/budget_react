@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Budget from './Budget';
+import Transactions from './Transactions/Transactions';
 
 class App extends React.Component {
   constructor() {
@@ -9,7 +9,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <Budget/>
+    return <Transactions />
   }
 }
 

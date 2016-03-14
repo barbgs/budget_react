@@ -80,7 +80,6 @@ class Budget extends React.Component {
       (!selectedId && currentEdit === true && !info.id)) {
       edit = !currentEdit;
     }
-
     return edit;
   }
 
@@ -122,6 +121,14 @@ class Budget extends React.Component {
     this.setState(newState);
   }
 
+  saveTransaction(data) {
+    console.log(data);
+  }
+
+  onChange() {
+    console.log(this.state.selected);
+  }
+
   render() {
     let transactions = [];
     Object.keys(this.state.transactions).forEach((key) => {
@@ -133,8 +140,12 @@ class Budget extends React.Component {
             edit={this.state.edit[key]}
             toggleManage={this.toggleManage.bind(this)} />
           <ManageTransaction
+            detailKey={key}
             edit={this.state.edit[key]}
-            selected={this.state.selected[key]} />
+            selected={this.state.selected[key]}
+            toggleManage={this.toggleManage.bind(this)}
+            onChange={this.onChange.bind(this)}
+            saveTransaction={this.saveTransaction.bind(this)} />
         </div>
       );
     });

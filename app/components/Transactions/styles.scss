@@ -1,0 +1,15 @@
+.transaction {
+  input {
+    display: none;
+  }
+
+  &.editing {
+    input {
+      display: block;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
